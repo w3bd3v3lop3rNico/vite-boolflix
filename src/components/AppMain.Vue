@@ -1,7 +1,6 @@
-<script>
-</script>
+<script></script>
 <template>
-
+    <div>RISULTATI RICERCA</div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 </style>
