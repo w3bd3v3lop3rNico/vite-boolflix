@@ -15,9 +15,6 @@ export default {
         onClick() {
             this.$emit('performSearch')
         },
-        onEnter() {
-            this.$emit('enterSearch')
-        }
     }
 }
 </script>

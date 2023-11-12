@@ -42,7 +42,6 @@ export default {
       this.fetchMovies();
       store.searchText = '';
     }
-
   },
   created() {
     this.fetchMovies()
@@ -55,7 +54,7 @@ export default {
   <div class="container">
     <AppHeader @performSearch="showMovies" />
     <div class="">
-      <AppMain v-for="movie in store.movies" :item="movie" :key="movie.id" @enterSearch="showMovies" />
+      <AppMain/>
     </div>
 
   </div>
