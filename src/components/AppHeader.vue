@@ -1,11 +1,33 @@
 <script>
+import { store } from '../store'
+export default {
+    data() {
+        return {
+            movie: '',
+            store
+        }
+    },
+    created () {
+        console.log(this.movie, store)
+
+    },
+    methods: {
+        onClick() {
+            this.$emit('performSearch')
+        },
+        onEnter() {
+            this.$emit('enterSearch')
+        }
+    }
+}
 </script>
 
 <template>
-    <nav class="header-navbar">
-        <input type="text">
-        <button>cerca</button>
-
+    <nav class="searchbar">
+        <input type="text" name="search-movie" 
+        v-model="store.searchText"
+        @keyup.enter="onEnter">
+        <button @click="onClick">cerca</button>
     </nav>
 </template>
 
