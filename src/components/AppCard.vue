@@ -3,28 +3,101 @@ import { store } from '../store';
 export default {
     props: {
         item: {
-            tipe: Array,
+            type: Object,
             required: true
         }
     },
+    data() {
+        return {
+            average: this.item.vote_average,
+            store
+        }
+    },
+    methods: {
+        getFiveRated(voteAverage) {
+            const vote = (voteAverage * 5) / 10
+            return parseInt(vote)
+        },
+        getImage(item) {
+            if(this.item.poster_path) {
+                return `https://image.tmdb.org/t/p/w342${item.poster_path}`
+            } else {
+                return `/img/image-not-found.svg`
+            }
+            
+            // return imageUrl
+        }
+    },
+    created() {
+        console.log(this.getFiveRated(this.average))
+        // console.log (this.average)
+    }
 }
 </script>
 <template>
-    <div class="col">
+    <div class="col-12">
         <div class="card">
-            <h2 class="title">{{ item.title }}</h2>
-            <h3 class="original-title">{{ item.original_title }}</h3>
-            <p class="lang">
-                {{ item.original_language }}
-                <figure>
-                    <img v-if="item.original_language == 'it'" src="/img/italian-flag.svg" alt="">
-                    <img v-if="item.original_language == 'en'" src="/img/uk-flag.svg" alt="">
-                    <img v-if="item.original_language == 'de'" src="/img/german-flag.svg" alt="">
-                </figure>
-            </p>
-            <p class="vote">{{ item.vote_average }}</p>
+            <figure class="poster-img">
+                <img :src="getImage(item)" alt="">
+            </figure>
+            <ul class="card-text">
+                <li>
+                    <h2 class="title" v-if="item.title">{{ item.title }}</h2>
+                    <h2 class="title" v-else> {{ item.name }} </h2>
+                </li>
+                <li>
+                    <h3 class="original-title" v-if="item.title">{{ item.original_title }}</h3>
+                    <h3 class="original-title" v-else>{{ item.original_name }}</h3>
+                </li>
+                <li class="lang">
+                    <figure class="lang-img" v-if="store.flags[item.original_language]">
+                        <img :src="store.flags[item.original_language]" alt="">
+                    </figure>
+                    <p class="lang-text" v-else>
+                        {{ item.original_language }}
+                    </p>
+                </li>
+                <li>
+                    <p class="vote">{{ getFiveRated(average) }}</p>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 <style lang="scss" scoped>
+.col-12 {
+    flex-basis: 100%;
+}
+
+.poster-img {
+    max-width: 100px;
+    img {
+        width: 100%;
+    }
+}
+
+.card {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+
+    .card-text {
+        padding-left: 10px;
+    }
+    .lang {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .lang-text {
+            text-transform: uppercase;
+        }
+
+        .lang-img {
+            width: 20px;
+        }
+    }
+}
 </style>

@@ -5,4 +5,10 @@ export const store = reactive({
     searchText: '',
     movies: [],
     series: [],
+    flags: {
+        it: '/img/italian-flag.svg',
+        en: '/img/uk-flag.svg',
+        de: '/img/german-flag.svg',
+    },
+    endImgUrl: []
 })

@@ -8,8 +8,6 @@ export default {
         }
     },
     created () {
-        console.log(this.movie, store)
-
     },
     methods: {
         onClick() {
