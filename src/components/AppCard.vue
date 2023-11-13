@@ -16,7 +16,7 @@ export default {
     methods: {
         getFiveRated(voteAverage) {
             const vote = (voteAverage * 5) / 10
-            return parseInt(vote)
+            return Math.ceil(vote)
         },
         getImage(item) {
             if(this.item.poster_path) {
@@ -57,8 +57,12 @@ export default {
                         {{ item.original_language }}
                     </p>
                 </li>
-                <li>
-                    <p class="vote">{{ getFiveRated(average) }}</p>
+                <li class="vote">
+                    <!-- <p class="vote">{{ getFiveRated(average) }}</p> -->
+                    <div class="stars" v-for="(stars, idx) in 5" :key="idx"
+                    :class="idx <= getFiveRated(average) & getFiveRated(average) > 0 ? 'gold-star' : ''">
+                        <font-awesome-icon icon="fa-solid fa-star" />
+                    </div>
                 </li>
             </ul>
         </div>
@@ -85,6 +89,13 @@ export default {
 
     .card-text {
         padding-left: 10px;
+        .vote {
+            display: flex;
+            flex-wrap: wrap;
+            .gold-star {
+                color: gold;
+            }
+        }
     }
     .lang {
         display: flex;
