@@ -29,51 +29,30 @@ export default {
           query: store.searchText,
         }
       }).then(res => {
-        // console.log(res.data.results);
+        console.log(res.data.results);
         const movies = res.data.results;
 
         store.movies = movies
 
       })
       axios.get('https://api.themoviedb.org/3/search/tv', {
-      params: {
-        api_key: store.apiKey,
-        query: store.searchText,
-      }
+        params: {
+          api_key: store.apiKey,
+          query: store.searchText,
+        }
       }).then(res => {
-        // console.log(res.data)
+        // console.log(res.data.results)
         const series = res.data.results;
         store.series = series
       })
     },
-    // fetchSeries() {
-    //   axios.get('https://api.themoviedb.org/3/search/tv', {
-    //     params: {
-    //       api_key: store.apiKey,
-    //       query: store.searchText,
-    //     }
-    //   }).then(res => {
-    //     console.log(res.data)
-    //     const series = res.data;
-    //     store.series = series
-    //   })
-    // },
-    // fetchMovies () {
-    //   axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${this.query}&language=it_IT`)
-    //   .then(res => {
-    //     console.log(res.data)
-    //   })
-    // },
-    // fetchSeries() {
-    //   axios.get('https://api.themoviedb.org/3/search/tv')
-    // },
     showMovies() {
       this.fetchData();
       store.searchText = '';
-    }
+    },
   },
   created() {
-    this.fetchData()
+    this.fetchData();
     // this.fetchSeries()
   }
 }
@@ -81,27 +60,21 @@ export default {
 </script>
 
 <template>
-  <div class="container app-body">
-    <header class="header">
-      <AppHeader @performSearch="showMovies" />
-    </header>
-    <div class="main">
-      <AppMain />
-    </div>
-
+  <div class="app">
+    <AppHeader @performSearch="showMovies" />
+    
+    <AppMain />
+    
   </div>
 </template>
 <style lang="scss">
 @use './styles/general.scss';
+@use './styles/partials/palette.scss' as *;
 
-.app-body {
-  padding-top: 40px;
+.app {
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  .header {
-    margin-bottom: 10px;
-  }
+  height: 100vh;
+  background-color: $app-bg-color;
 }
 </style>
